@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+Leave all of the Patterns under Input1 commnted out, except for one of them.
+The rest of the parameters should work with each of these tests.
+Included are various tests discussed in the "temporal context forking problem" thread on the OpenHTM forum, as well as a few others.
+Run through time 3000 or so then display predictions for Input1 and test that the correct predictions are being made.
+-->
+<NetConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<ProximalSynapseParams>
+		<InitialPermanence>0.3</InitialPermanence>
+		<ConnectedPermanence>0.2</ConnectedPermanence>
+		<PermanenceIncrease>0.015</PermanenceIncrease>
+		<PermanenceDecrease>0.005</PermanenceDecrease>
+	</ProximalSynapseParams>
+	<DistalSynapseParams>
+		<InitialPermanence>0.3</InitialPermanence>
+		<ConnectedPermanence>0.2</ConnectedPermanence>
+		<PermanenceIncrease>0.015</PermanenceIncrease>
+		<PermanenceDecrease>0.005</PermanenceDecrease>
+	</DistalSynapseParams>
+	<InputSpace id="Input1">
+		<SizeX>12</SizeX>
+		<SizeY>12</SizeY>
+		<NumValues>1</NumValues>
+		<!--<Pattern type="BouncingBar" trial_duration="1"></Pattern>-->
+		<Pattern type="Text" trial_duration="1" string="FOURSCOREANDSEVENYEARSAGO"></Pattern>
+		<!--<Pattern type="text" trial_duration="1" string="COZYLUMMOXGIVESSMARTSQUIDWHOASKSFORJOBPEN"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="ABBCBBA"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="AAAX"></Pattern>-->
+    <!--<Pattern type="Text" trial_duration="1" string="PeeXeeP"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="ABABABABC"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="AABAB"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="ABABC"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="AAABAAB"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="ABBCBDE"></Pattern>-->
+		<!--<Pattern type="Text" trial_duration="1" string="ABBCABDD"></Pattern>-->
+	</InputSpace>
+	<Region id="Region1">
+		<SizeX>16</SizeX>
+		<SizeY>16</SizeY>
+		<HardcodedSpatial>false</HardcodedSpatial>
+		<PercentageInputPerCol>40</PercentageInputPerCol>
+		<PercentageMinOverlap>10</PercentageMinOverlap>
+		<PercentageLocalActivity>6</PercentageLocalActivity>
+		<Boost rate="0.01" max="3"></Boost>
+		<SpatialLearningPeriod start="-1" end="-1"></SpatialLearningPeriod>
+		<TemporalLearningPeriod start="2000" end="-1"></TemporalLearningPeriod>
+		<BoostingPeriod start="-1" end="2000"></BoostingPeriod>
+		<MinOverlapToReuseSegment min="3" max="5"></MinOverlapToReuseSegment>
+		<PredictionRadius>10</PredictionRadius>
+		<CellsPerColumn>9</CellsPerColumn>
+		<SegmentActivateThreshold>5</SegmentActivateThreshold>
+		<NewNumberSynapses>10</NewNumberSynapses>
+		<OutputColumnActivity>false</OutputColumnActivity>
+		<OutputCellActivity>true</OutputCellActivity>
+		<Inputs>
+			<Input id="Input1" radius="6"></Input>
+		</Inputs>
+	</Region>
+</NetConfig>

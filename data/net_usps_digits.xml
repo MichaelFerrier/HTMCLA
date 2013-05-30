@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!--
+This is an experimental vision test that isn't yet complete or working well.
+-->
+<NetConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<ProximalSynapseParams>
+		<InitialPermanence>0.3</InitialPermanence>
+		<ConnectedPermanence>0.2</ConnectedPermanence>
+		<PermanenceIncrease>0.015</PermanenceIncrease>
+		<PermanenceDecrease>0.015</PermanenceDecrease>
+	</ProximalSynapseParams>
+	<DistalSynapseParams>
+		<InitialPermanence>0.15</InitialPermanence>
+		<ConnectedPermanence>0.2</ConnectedPermanence>
+		<PermanenceIncrease>0.1</PermanenceIncrease>
+		<PermanenceDecrease>0.02</PermanenceDecrease>
+	</DistalSynapseParams>
+	<InputSpace id="Input1">
+		<SizeX>24</SizeX>
+		<SizeY>24</SizeY>
+		<NumValues>2</NumValues>
+		<Pattern type="Image" width="16" height="16" format="spreadsheet"  source="usps.t" trial_duration="15" motion="across2" start="-1" end="-1"></Pattern>
+	</InputSpace>
+	<Region id="Region1">
+		<SizeX>80</SizeX><!--8 hypercolumns for 5x5 receptive field with input radius 2 -->
+		<SizeY>80</SizeY>
+		<CellsPerColumn>1</CellsPerColumn>
+		<HypercolumnDiameter>10</HypercolumnDiameter>
+		<PercentageInputPerCol>100</PercentageInputPerCol>
+		<PercentageMinOverlap>10</PercentageMinOverlap>
+		<PercentageLocalActivity>1</PercentageLocalActivity> <!-- 2 for 64 cols; 1 for 100 cols -->
+		<Inhibition type="radius" radius="0"></Inhibition>
+		<Boost rate="0.000125" max="2.0"></Boost>
+		<BoostingPeriod start="-1" end="20000"></BoostingPeriod>
+		<SpatialLearningPeriod start="-1" end="20000"></SpatialLearningPeriod>
+		<TemporalLearningPeriod start="20000" end="30000"></TemporalLearningPeriod>
+		<HardcodedSpatial>false</HardcodedSpatial>
+		<PredictionRadius>1</PredictionRadius>
+		<SegmentActivateThreshold>1</SegmentActivateThreshold>
+		<NewNumberSynapses>6</NewNumberSynapses>
+		<MinOverlapToReuseSegment min="1" max="1"></MinOverlapToReuseSegment>
+		<OutputColumnActivity>false</OutputColumnActivity>
+		<OutputCellActivity>true</OutputCellActivity>
+		<Inputs>
+			<Input id="Input1" radius="2"></Input>
+		</Inputs>
+	</Region>
+	<Region id="Region2">
+		<SizeX>40</SizeX><!--8 hypercolumns for 5x5 receptive field with input radius 2 -->
+		<SizeY>40</SizeY>
+		<CellsPerColumn>1</CellsPerColumn>
+		<HypercolumnDiameter>10</HypercolumnDiameter>
+		<PercentageInputPerCol>50</PercentageInputPerCol>
+		<PercentageMinOverlap>0.5</PercentageMinOverlap>
+		<PercentageLocalActivity>3</PercentageLocalActivity> <!-- 2 for 64 cols; 1 for 100 cols -->
+		<Inhibition type="radius" radius="0"></Inhibition>
+		<Boost rate="0.000125" max="2.0"></Boost>
+		<BoostingPeriod start="30000" end="40000"></BoostingPeriod>
+		<SpatialLearningPeriod start="30000" end="40000"></SpatialLearningPeriod>
+		<TemporalLearningPeriod start="40000" end="50000"></TemporalLearningPeriod>
+		<HardcodedSpatial>false</HardcodedSpatial>
+		<PredictionRadius>1</PredictionRadius>
+		<SegmentActivateThreshold>4</SegmentActivateThreshold>
+		<NewNumberSynapses>10</NewNumberSynapses>
+		<MinOverlapToReuseSegment min="4" max="4"></MinOverlapToReuseSegment>
+		<OutputColumnActivity>false</OutputColumnActivity>
+		<OutputCellActivity>true</OutputCellActivity>
+		<Inputs>
+			<Input id="Region1" radius="1"></Input>
+		</Inputs>
+	</Region>
+	<Region id="Region3">
+		<SizeX>20</SizeX><!--8 hypercolumns for 5x5 receptive field with input radius 2 -->
+		<SizeY>20</SizeY>
+		<CellsPerColumn>1</CellsPerColumn>
+		<HypercolumnDiameter>10</HypercolumnDiameter>
+		<PercentageInputPerCol>50</PercentageInputPerCol>
+		<PercentageMinOverlap>0.5</PercentageMinOverlap>
+		<PercentageLocalActivity>4</PercentageLocalActivity> <!-- 2 for 64 cols; 1 for 100 cols -->
+		<Inhibition type="radius" radius="0"></Inhibition>
+		<Boost rate="0.000125" max="2.0"></Boost>
+		<BoostingPeriod start="50000" end="60000"></BoostingPeriod>
+		<SpatialLearningPeriod start="50000" end="60000"></SpatialLearningPeriod>
+		<TemporalLearningPeriod start="60000" end="70000"></TemporalLearningPeriod>
+		<HardcodedSpatial>false</HardcodedSpatial>
+		<PredictionRadius>1</PredictionRadius>
+		<SegmentActivateThreshold>1</SegmentActivateThreshold>
+		<NewNumberSynapses>10</NewNumberSynapses>
+		<MinOverlapToReuseSegment min="1" max="1"></MinOverlapToReuseSegment>
+		<OutputColumnActivity>false</OutputColumnActivity>
+		<OutputCellActivity>true</OutputCellActivity>
+		<Inputs>
+			<Input id="Region2" radius="1"></Input>
+		</Inputs>
+	</Region>
+	<Region id="Region4">
+		<SizeX>10</SizeX><!--8 hypercolumns for 5x5 receptive field with input radius 2 -->
+		<SizeY>10</SizeY>
+		<CellsPerColumn>1</CellsPerColumn>
+		<HypercolumnDiameter>10</HypercolumnDiameter>
+		<PercentageInputPerCol>50</PercentageInputPerCol>
+		<PercentageMinOverlap>0.5</PercentageMinOverlap>
+		<PercentageLocalActivity>5</PercentageLocalActivity> <!-- 2 for 64 cols; 1 for 100 cols -->
+		<Inhibition type="radius" radius="0"></Inhibition>
+		<Boost rate="0.000125" max="2.0"></Boost>
+		<BoostingPeriod start="70000" end="80000"></BoostingPeriod>
+		<SpatialLearningPeriod start="70000" end="80000"></SpatialLearningPeriod>
+		<TemporalLearningPeriod start="80000" end="90000"></TemporalLearningPeriod>
+		<HardcodedSpatial>false</HardcodedSpatial>
+		<PredictionRadius>1</PredictionRadius>
+		<SegmentActivateThreshold>1</SegmentActivateThreshold>
+		<NewNumberSynapses>10</NewNumberSynapses>
+		<MinOverlapToReuseSegment min="1" max="1"></MinOverlapToReuseSegment>
+		<OutputColumnActivity>false</OutputColumnActivity>
+		<OutputCellActivity>true</OutputCellActivity>
+		<Inputs>
+			<Input id="Region3" radius="-1"></Input>
+		</Inputs>
+	</Region>
+	<Classifier id="Classifier" inputspace="Input1" region="Region4" numitems="10" labels="0,1,2,3,4,5,6,7,8,9"></Classifier>
+</NetConfig>

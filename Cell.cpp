@@ -52,21 +52,6 @@ void Cell::SetIsPredicting(bool value, int numPredictionSteps)
 	}
 
 	_isPredicting = value;
-	/*
-	if (_isPredicting)
-	{
-		NumPredictionSteps = MaxTimeSteps;
-
-		FastListIter segments_iter(Segments);
-		for (Segment *seg = (Segment*)(segments_iter.Reset()); seg != NULL; seg = (Segment*)(segments_iter.Advance()))
-		{
-			if (seg->GetIsActive() & (seg->GetNumPredictionSteps() < NumPredictionSteps))
-			{
-				NumPredictionSteps = seg->GetNumPredictionSteps();
-			}
-		}
-	}
-	*/
 }
 
 /// Methods
@@ -88,9 +73,6 @@ void Cell::Initialize(Column *col, int index)
 	NumPredictionSteps = 0;
 	PrevNumPredictionSteps = 0;
 	PrevActiveTime = -1;
-
-	// Initialize Paramters for Statistics
-	InitializeStatisticParameters();
 }
 
 /// Advances this cell to the next time step. 
@@ -100,9 +82,6 @@ void Cell::Initialize(Column *col, int index)
 /// default until it can be determined.
 void Cell::NextTimeStep()
 {
-	// Compute basic statistcs
-	ComputeBasicStatistics();
-
 	WasPredicted = _isPredicting;
 	WasSegmentPredicted = IsSegmentPredicting;
 	WasActive = IsActive;
@@ -223,10 +202,7 @@ void Cell::ApplySegmentUpdates(int _curTime, ApplyUpdateTrigger _trigger)
 	FastListIter synapses_iter, seg_update_iter;
 	bool apply_update;
 
-	// HERE: TODO: Iterate through all segment updates, skipping those not to be applied now, and removing those that are applied.
-	// At the end, only process modified segments if all segment updates have been processed, to avoid deleting segments or synapses that
-	// are referred to by still-existing segment updates.
-
+	// Iterate through all segment updates, skipping those not to be applied now, and removing those that are applied.
 	seg_update_iter.SetList(_segmentUpdates);
 	for (segInfo = (SegmentUpdateInfo*)(seg_update_iter.Reset()); segInfo != NULL; segInfo = (SegmentUpdateInfo*)(seg_update_iter.Get()))
 	{
@@ -292,6 +268,8 @@ void Cell::ApplySegmentUpdates(int _curTime, ApplyUpdateTrigger _trigger)
 		}
 	}
 
+	// Only process modified segments if all segment updates have been processed, to avoid deleting segments or synapses that
+	// are referred to by still-existing segment updates.
 	if (_segmentUpdates.Count() == 0)
 	{
 		// All segment updates have been processed, so there are none left that may have references to this cell's 
@@ -402,99 +380,4 @@ Segment *Cell::GetBestMatchingSegment(int numPredictionSteps, bool previous)
 	}
 
 	return bestSegment;
-}
-
-/// Statistics
-
-/// Updates basic statistics on cell-level.
-///
-/// A: Absolute paramters:
-///  StepCounter: absolute number of steps
-///  Activity Counter: absolute number of cell activations
-///  Prediction Counter: absolute number of cell predictions
-///  Correct Prediction Counter: absolute number of CORRECT cell predictions
-///  Learning Counter: absolute number of learning activations
-///  Segment Counter: absolute number of segments per cell
-///  MaxSynCounter: max. Number of synapses per cell
-/// B: Averages:
-///  Activity Rate: ActivityCounter/StepCounter
-///  Precision: CorrectPredictions/Predictions
-void Cell::ComputeBasicStatistics()
-{
-	StepCounter++;
-
-	if (IsActive)
-	{
-		// Update cell
-		ActivityCounter++;
-
-		// Update column and region
-		column->ActivityCounter++;
-
-		if (WasPredicted)
-		{
-			CorrectPredictionCounter++;
-			column->_correctPredictionCounter++;
-
-			if (WasSegmentPredicted)
-			{
-				CorrectSegmentPredictionCounter++;
-				column->_correctSegmentPredictionCounter++;
-				ActivityPrecision = CorrectSegmentPredictionCounter / ActivityCounter;
-			}
-		}
-	}
-
-	if (WasPredicted)
-	{
-		PredictionCounter++;
-		column->_predictionCounter++;
-
-		if (WasSegmentPredicted)
-		{
-			SegmentPredictionCounter++;
-			column->_segmentPredictionCounter++;
-			PredictPrecision = CorrectSegmentPredictionCounter / SegmentPredictionCounter;
-		}
-	}
-
-	if (IsLearning)
-	{
-		LearningCounter++;
-		column->LearningCounter++;
-	}
-
-	ActivityRate = ActivityCounter / StepCounter;
-
-	// Determine number of Segments per Cell:
-	NumberSegments = Segments.Count();
-
-	// Determine max number of Synapses per Segment.
-	int newSyn, maxSyn = 0;
-	FastListIter segments_iter(Segments);
-	for (Segment *seg = (Segment*)(segments_iter.Reset()); seg != NULL; seg = (Segment*)(segments_iter.Advance()))
-	{
-		newSyn = seg->Synapses.Count();
-		if (newSyn > maxSyn)
-		{
-			maxSyn = newSyn;
-		}
-	}
-
-	MaxSynapseCount = maxSyn;
-}
-
-/// Sets statistics values to 0.
-void Cell::InitializeStatisticParameters()
-{
-	StepCounter = 0;
-	PredictionCounter = 0;
-	SegmentPredictionCounter = 0;
-	ActivityCounter = 0;
-	LearningCounter = 0;
-	CorrectPredictionCounter = 0;
-	CorrectSegmentPredictionCounter = 0;
-	ActivityRate = 0.0f;
-	PredictPrecision = 0.0f;
-	NumberSegments = 0;
 }

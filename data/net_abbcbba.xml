@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+Boosting takes place during times 1-2000. Run until time ~2100 to allow temporal pooler to complete learning.
+-->
+<NetConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<ProximalSynapseParams>
+		<InitialPermanence>0.22</InitialPermanence>
+		<ConnectedPermanence>0.2</ConnectedPermanence>
+		<PermanenceIncrease>0.015</PermanenceIncrease>
+		<PermanenceDecrease>0.01</PermanenceDecrease>
+	</ProximalSynapseParams>
+	<DistalSynapseParams>
+		<InitialPermanence>0.22</InitialPermanence>
+		<ConnectedPermanence>0.2</ConnectedPermanence>
+		<PermanenceIncrease>0.015</PermanenceIncrease>
+		<PermanenceDecrease>0.01</PermanenceDecrease>
+	</DistalSynapseParams>
+	<InputSpace id="Input1">
+		<SizeX>12</SizeX>
+		<SizeY>12</SizeY>
+		<NumValues>1</NumValues>
+		<Pattern type="Text" trial_duration="1" string="ABBCBBA"></Pattern>
+	</InputSpace>
+	<Region id="Region1">
+		<SizeX>16</SizeX>
+		<SizeY>16</SizeY>
+		<HardcodedSpatial>false</HardcodedSpatial>
+		<Boost rate="0.01" max="5"></Boost>
+		<SpatialLearningPeriod start="-1" end="-1"></SpatialLearningPeriod>
+		<TemporalLearningPeriod start="2000" end="-1"></TemporalLearningPeriod>
+		<BoostingPeriod start="0" end="2000"></BoostingPeriod>
+		<MinOverlapToReuseSegment min="3" max="3"></MinOverlapToReuseSegment>
+		<PercentageInputPerCol>50</PercentageInputPerCol>
+		<PercentageMinOverlap>10</PercentageMinOverlap>
+		<PercentageLocalActivity>6</PercentageLocalActivity>
+		<PredictionRadius>10</PredictionRadius>
+		<CellsPerColumn>4</CellsPerColumn>
+		<SegmentActivateThreshold>5</SegmentActivateThreshold>
+		<NewNumberSynapses>10</NewNumberSynapses>
+		<OutputColumnActivity>false</OutputColumnActivity>
+		<OutputCellActivity>true</OutputCellActivity>
+		<Inputs>
+			<Input id="Input1" radius="6"></Input>
+		</Inputs>
+	</Region>
+</NetConfig>
