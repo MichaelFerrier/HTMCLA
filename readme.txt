@@ -348,7 +348,7 @@ such as text or bitmaps.
 Getting Started
 ===========================================================================================
 
-After gettinh HTMCLA built and running, I recommend testing the various example network files
+After getting HTMCLA built and running, I recommend testing the various example network files
 that can be found in the "data" subdirectory. Open each one in a text editor, and you will find
 comments at the top of each file with a brief description and instructions. Most of them are specialized
 toward a particular example. net_test.xml includes many diffrent examples, which can be tested by un-commenting 
