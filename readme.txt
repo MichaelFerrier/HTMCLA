@@ -7,8 +7,13 @@ By Michael Ferrier, 2013.
 
 This C++ implementation is based on Numenta's CLA white paper:
 https://www.groksolutions.com/htm-overview/education/HTM_CorticalLearningAlgorithms.pdf
+
 It builds on the OpenHTM C# implementation:
 https://sourceforge.net/p/openhtm/
+
+A couple of demonstration videos are online here:
+http://www.youtube.com/watch?v=IXg_XIm5kqk
+http://www.youtube.com/watch?v=YeBC9eew3Lg
 
 ===========================================================================================
 Build Instructions
