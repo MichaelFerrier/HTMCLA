@@ -127,7 +127,7 @@ View Top-Down Reconstruction: Displays a reconstruction of what is active in the
   traced backwards from active cells in the output region(s), to determine what cells in 
   this region (or input space) would lead to those activations.
 
-View Prediction: Displays a reconstruction of what is predicted to be active in the region or 
+View Top-Down Prediction: Displays a reconstruction of what is predicted to be active in the region or 
   input space during the next time step, based on what cells are 1-step predictive in the 
   region(s) that it outputs to. Synapses are traced backwards from 1-step predictive cells in 
   the output region(s), to determine what cells in this region (or input space) would lead to 
@@ -137,14 +137,14 @@ View Boost: When this is on, each column is colored to show its relative boost v
   brightest red columns have the highest boost values, while grey columns are not boosted at 
   all.
 
-View Connection In: When this is on, synapses from cells that input to the selected cell 
+View Connections In: When this is on, synapses from cells that input to the selected cell 
   and/or column are displayed in the view. Red synapses are not connected; green synapses are 
   connected. The brighter the color, the further the synapse's value from ConnectedPerm (in 
   either direction). Zoom in on the area to view the permanence values of the syanpses. A 
   selected column's proximal synapses are shown in it's region's input region(s) or input 
   space(s). A cell's distal synapses are shown in the cell's same region.
 
-View Connections In: This feature is not yet implemented. Eventually it will display the 
+View Connections Out: This feature is not yet implemented. Eventually it will display the 
   synapses that output from the selected cell to other cells.
 
 View Marked Cells: Cells can be marked so as to, for example, compare what cells are active 
@@ -307,9 +307,9 @@ Overlap
 In the CLA white paper and in the OpenHTM implementation, a column's Overlap value is simply 
 the count of its active, connected proximal synapses, multiplied by the column's Boost value 
 (a number >= 1). This is also the case in my implementation, but an additional factor is 
-multipled in. That factor is the ratio of the number of connected active synapses, over the 
-sum of itself plus the number of strongly connected inactive synapses. A strongly connected 
-synapse is defined as a synapse with permanence > InitialPerm.
+multipled in. That factor is the ratio of the number of connected active synapses, over 
+itself plus the number of strongly connected inactive synapses. A strongly connected synapse 
+is defined as a synapse with permanence > InitialPerm.
 
 The thinking behind this is that a column which exactly represents a particular pattern of 
 active inputs should be a better match for that pattern than another column that represents 
@@ -317,7 +317,7 @@ the same active inputs plus additional active inputs. For example, say a number 
 are active such that they form the image of a 45 degree line. One column may have only 
 enough connected synapses to exactly represent that pattern, while another column may have 
 all of its synapses connected -- all of the ones that represent that line, plus every other 
-synapse representing every other input. In this case, in without the factor that I brought 
+synapse representing every other input. In this case, without the factor that I brought 
 in, both columns would have the same overlap (given that they have the same boost value). 
 That makes the columns that have most or all of their synapses connected "greedy", in the 
 sense that they can represent many smaller patterns that they don't fit very well. This 
