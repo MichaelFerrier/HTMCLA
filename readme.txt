@@ -46,6 +46,37 @@ an environment of your choice that incorporates QT 5 and each of this project's 
 files. If you're using Visual Studio 2012, you should be able to use the htm.sln file.
 
 ===========================================================================================
+Build Instructions II
+===========================================================================================
+After discovering this repository and struggling to build for some amount of time, I thought I
+would share how I put it together. In general, I installed VS Community (not sure if you can
+use express), installed QT version 5.6rc (prerelease!! This is important), installed an
+extension for QT5 instead of the previously mentioned add-on, and changed the names of lib
+files in the linker. 
+
+Built with Windows 10, Visual Studio Community 2015
+7 March 2016
+
+1) Install QT5.6: http://download.qt.io/development_releases/qt/5.6/5.6.0-rc/
+   NOTE: you may have to go through a few slides of questions, then you can go to Other 
+   Downloads -> QT 5.6.0-rc (at the very bottom)
+   NOTE: If you're using VS 2015, you must use this version. Otherwise, I'm not sure.
+   
+2) Download QT5Package (the extension for QT in VS): 
+   https://visualstudiogallery.msdn.microsoft.com/c89ff880-8509-47a4-a262-e4fa07168408
+   
+3) Open VS, open the solution in the directory, and for good measure open main.cpp
+
+   You'll now find the msvc folder in the QT folder in C:\QT or Program Files\QT, so follow
+   instructions 3-6 above using this instead.
+   
+4) Now go to Project -> htm Properties -> Linker -> Input and select the arrow to the right
+   of Additional Dependencies. Change any linker with a 5 at the end (e.g. QT5Core5.lib)
+   by removing the second five (e.g. QT5Core.lib)
+   
+5) Build, run, fun!
+
+===========================================================================================
 Using HTMCLA
 ===========================================================================================
 
